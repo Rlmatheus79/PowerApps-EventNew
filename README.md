@@ -4,3 +4,6 @@
 
 [![Video mostrando o Power Apps](https://markdown-videos-api.jorgenkh.no/youtube/pbcFfL9WbBE&ab)](https://youtu.be/pbcFfL9WbBE&ab)
 
+[![](https://markdown-videos-api.jorgenkh.no/youtube/pbcFfL9WbBE&ab)](https://youtu.be/pbcFfL9WbBE&ab)
+
+
