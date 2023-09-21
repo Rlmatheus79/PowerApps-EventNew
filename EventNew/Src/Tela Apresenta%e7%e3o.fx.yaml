@@ -1,0 +1,104 @@
+"'Tela Apresentação' As screen":
+    Fill: =RGBA(32, 32, 32, 1)
+    LoadingSpinnerColor: =RGBA(100, 118, 132, 1)
+
+    Button1_1 As button:
+        BorderThickness: =0
+        DisabledBorderColor: =RGBA(166, 166, 166, 1)
+        DisabledColor: =RGBA(166, 166, 166, 1)
+        DisabledFill: =RGBA(64, 64, 64, 1)
+        Fill: =RGBA(64, 64, 64, 1)
+        FocusedBorderThickness: =0
+        Font: =Font.Lato
+        FontWeight: =FontWeight.Bold
+        Height: =84
+        HoverFill: =RGBA(64, 64, 64, 1)
+        OnSelect: =Navigate('Tela Login',ScreenTransition.Cover)
+        PaddingLeft: =30
+        PressedColor: =RGBA(255, 255, 255, 1)
+        PressedFill: =RGBA(64, 64, 64, 1)
+        RadiusBottomLeft: =35
+        RadiusBottomRight: =35
+        RadiusTopLeft: =35
+        RadiusTopRight: =35
+        Size: =20
+        Text: ="Login"
+        Width: =263
+        X: =270
+        Y: =980
+        ZIndex: =1
+
+    Image3 As image:
+        BorderColor: =RGBA(197, 203, 207, 1)
+        DisabledBorderColor: =RGBA(166, 166, 166, 1)
+        DisabledFill: =RGBA(244, 244, 244, 1)
+        Height: =383
+        Image: =undraw_Schedule_re_2vro_1
+        Width: =383
+        X: =129
+        Y: =87
+        ZIndex: =2
+
+    Label1_1 As label:
+        Align: =Align.Center
+        BorderColor: =RGBA(197, 203, 207, 1)
+        Color: =RGBA(255, 255, 255, 1)
+        DisabledColor: =RGBA(166, 166, 166, 1)
+        Font: =Font.'Lato Black'
+        FontWeight: =FontWeight.Bold
+        Height: =140
+        LineHeight: =1.4
+        Size: =35
+        Text: |-
+            ="Crie e participe 
+            de eventos"
+        Width: =640
+        Y: =525
+        ZIndex: =3
+
+    Label1_2 As label:
+        Align: =Align.Center
+        BorderColor: =RGBA(197, 203, 207, 1)
+        Color: =RGBA(189, 189, 189, 1)
+        DisabledColor: =RGBA(166, 166, 166, 1)
+        Font: =Font.Lato
+        FontWeight: =FontWeight.Bold
+        Height: =140
+        LineHeight: =1.4
+        Size: =18
+        Text: |-
+            ="Faça o login ou 
+            cadastra-se para se juntar a nós. Juntos facilitaremos o mundo"
+        Width: =450
+        X: =102
+        Y: =685
+        ZIndex: =4
+
+    Button1 As button:
+        BorderThickness: =0
+        Color: =RGBA(32, 32, 32, 1)
+        DisabledBorderColor: =RGBA(166, 166, 166, 1)
+        DisabledColor: =RGBA(166, 166, 166, 1)
+        DisabledFill: =RGBA(244, 244, 244, 1)
+        Fill: =RGBA(255, 255, 255, 1)
+        FocusedBorderThickness: =0
+        Font: =Font.Lato
+        FontWeight: =FontWeight.Bold
+        Height: =84
+        HoverColor: =RGBA(32, 32, 32, 1)
+        HoverFill: =RGBA(255, 255, 255, 1)
+        OnSelect: |-
+            =Navigate('Tela Cadastro',ScreenTransition.Cover,{Edit:false})
+        PressedColor: =Self.Color
+        PressedFill: =Self.Fill
+        RadiusBottomLeft: =35
+        RadiusBottomRight: =35
+        RadiusTopLeft: =35
+        RadiusTopRight: =35
+        Size: =20
+        Text: ="Cadastrar"
+        Width: =230
+        X: =98
+        Y: =980
+        ZIndex: =5
+

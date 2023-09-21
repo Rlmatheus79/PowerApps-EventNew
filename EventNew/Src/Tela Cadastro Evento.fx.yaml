@@ -1,0 +1,582 @@
+"'Tela Cadastro Evento' As screen":
+    Fill: =RGBA(32, 32, 32, 1)
+    LoadingSpinnerColor: =RGBA(100, 118, 132, 1)
+    OnHidden: |-
+        =Reset(txtNomeEvento);
+        Reset(cmbCategoria);
+        Reset(dataEvento);
+        Reset(cmbInicioEvento);
+        Reset(cmbterminoEvento);
+        Reset(txtEnderecoEvento);
+        Reset(txtNumParticipantes);
+        Reset(txtDetalhesEvento)
+    OnVisible: =false
+
+    MenuInferior_3 As MenuInferior:
+        ContentLanguage: =""
+        MoverBarra: ="185"
+        NavConfig: =Configurações
+        NavCriar: =If(VarDadosUsuario.TipoUsuario = "Organizador",'Tela Cadastro Evento','Pesquisar Evento')
+        NavHistorico: =Histórico
+        NavInicial: ='Tela Inicial'
+        Perfil: =VarDadosUsuario.TipoUsuario
+        Y: =1043
+        ZIndex: =15
+
+    Canvas1_2 As fluidGrid.fluidGridWithBlankCard:
+        BorderThickness: =0
+        Height: =1043
+        Width: =680
+        ZIndex: =16
+
+        DataCard1_2 As dataCard:
+            BorderColor: =RGBA(0, 0, 0, 1)
+            BorderStyle: =BorderStyle.Solid
+            BorderThickness: =0
+            DisplayMode: =DisplayMode.Edit
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =1656
+            Visible: =true
+            Width: =680
+            X: =0
+            Y: =0
+            ZIndex: =1
+
+            Label1_49 As label:
+                BorderColor: =RGBA(197, 203, 207, 1)
+                Color: =RGBA(255, 255, 255, 1)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                Font: =Font.'Lato Black'
+                FontWeight: =FontWeight.Bold
+                Height: =133
+                LineHeight: =1.4
+                PaddingLeft: =0
+                Size: =35
+                Text: ="Cadastre seu evento."
+                Width: =561
+                X: =60
+                Y: =106
+                ZIndex: =2
+
+            Icon2_16 As icon.Reset:
+                BorderColor: =RGBA(197, 203, 207, 1)
+                Color: =RGBA(255, 255, 255, 1)
+                DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                DisabledColor: =RGBA(244, 244, 244, 1)
+                Height: =47
+                Icon: =Icon.Reset
+                OnSelect: =Back(ScreenTransition.CoverRight)
+                Width: =47
+                X: =60
+                Y: =38
+                ZIndex: =3
+
+            Button1_4 As button:
+                BorderThickness: =0
+                Color: =RGBA(32, 32, 32, 1)
+                DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                DisabledFill: =RGBA(244, 244, 244, 1)
+                Fill: =RGBA(255, 255, 255, 1)
+                Font: =Font.Lato
+                FontWeight: =FontWeight.Bold
+                Height: =97
+                HoverColor: =RGBA(32, 32, 32, 1)
+                HoverFill: =RGBA(255, 255, 255, 1)
+                OnSelect: |
+                    =// valida se os campos estão em branco
+                    If(
+                        IsBlank(txtNomeEvento.Text) Or IsBlank(dataEvento.SelectedDate) Or IsBlank(cmbInicioEvento.Selected) Or IsBlank(cmbterminoEvento.Selected) Or IsBlank(txtDetalhesEvento.Text),
+                        Notify(
+                            "Preencha todos os campos para continuar",
+                            NotificationType.Error
+                        ),
+                        Patch(
+                            Evento,
+                            {
+                                IDOrganizador: VarDadosUsuario.ID,
+                                NomeEvento: Trim(txtNomeEvento.Text),
+                                Data: dataEvento.SelectedDate,
+                                Horario: cmbInicioEvento.Selected.Value & " - " & cmbterminoEvento.Selected.Value,
+                                IDInteresse:cmbCategoria.Selected.ID,
+                                Detalhes: Trim(txtDetalhesEvento.Text),
+                                NumeroParticipantes: Value(txtNumParticipantes.Text),
+                                Endereco: txtEnderecoEvento.Text,
+                                Status: "Em breve"
+                            }
+                        );
+                    
+                        ForAll(Filter(Interesse_Usuario, IDInteresse = cmbCategoria.Selected.ID),
+                            Patch(Notificacao,
+                                {
+                                    IDUsuario: ThisRecord.IDUsuario,
+                                    DescricaoNotificacao: "Um evento de " & cmbCategoria.Selected.Descricao & " acaba de ser criado",
+                                   Status: "Não visualizado"
+                                }
+                            )
+                        );
+                    
+                        Notify(
+                            "Evento cadastrado com sucesso",
+                            NotificationType.Success
+                        );
+                        Navigate(
+                            'Tela Inicial',
+                            Transition.Push
+                        );
+                        
+                    );
+                PressedColor: =Self.Color
+                PressedFill: =Self.Fill
+                RadiusBottomLeft: =20
+                RadiusBottomRight: =20
+                RadiusTopLeft: =20
+                RadiusTopRight: =20
+                Size: =20
+                Text: ="Criar Evento"
+                Width: =521
+                X: =60
+                Y: =1496
+                ZIndex: =4
+
+            txtNomeEvento As text:
+                BorderColor: =RGBA(149, 149, 149, 1)
+                BorderThickness: =2
+                Color: =RGBA(255, 255, 255, 1)
+                Default: =""
+                DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                DisabledFill: =RGBA(244, 244, 244, 1)
+                Fill: =RGBA(32, 32, 32, 1)
+                FocusedBorderThickness: =1
+                Height: =97
+                HintText: ="Nome do evento"
+                HoverBorderColor: =RGBA(110, 110, 110, 1)
+                HoverColor: =RGBA(255, 255, 255, 1)
+                HoverFill: =RGBA(32, 32, 32, 1)
+                PaddingLeft: =30
+                RadiusBottomLeft: =20
+                RadiusBottomRight: =20
+                RadiusTopLeft: =20
+                RadiusTopRight: =20
+                Size: =18
+                Width: =521
+                X: =60
+                Y: =278
+                ZIndex: =6
+
+            txtEmailUsuario_2 As text:
+                BorderColor: =RGBA(149, 149, 149, 1)
+                BorderThickness: =2
+                Color: =RGBA(255, 255, 255, 1)
+                Default: =""
+                DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                DisabledFill: =RGBA(0, 0, 0, 0)
+                DisplayMode: =DisplayMode.Disabled
+                Fill: =RGBA(0, 0, 0, 0)
+                FocusedBorderThickness: =1
+                Height: =97
+                HintText: =""
+                HoverBorderColor: =RGBA(110, 110, 110, 1)
+                HoverColor: =RGBA(255, 255, 255, 1)
+                HoverFill: =RGBA(32, 32, 32, 1)
+                PaddingLeft: =30
+                RadiusBottomLeft: =20
+                RadiusBottomRight: =20
+                RadiusTopLeft: =20
+                RadiusTopRight: =20
+                Size: =18
+                Width: =521
+                X: =59
+                Y: =551
+                ZIndex: =10
+
+            dataEvento As datepicker:
+                BorderColor: =RGBA(197, 203, 207, 1)
+                BorderThickness: =0
+                CalendarHeaderFill: =RGBA(100, 118, 132, 1)
+                Color: =RGBA(255, 255, 255, 1)
+                DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                DisabledFill: =RGBA(244, 244, 244, 1)
+                Fill: =RGBA(32, 32, 32, 1)
+                FocusedBorderThickness: =0
+                Height: =70
+                HoverDateFill: =RGBA(62, 74, 83, 1)
+                IconBackground: =RGBA(32, 32, 32, 1)
+                IconFill: =RGBA(149, 149, 149, 1)
+                PaddingLeft: =14
+                SelectedDateFill: =RGBA(100, 118, 132, 1)
+                Size: =18
+                Width: =496
+                X: =71
+                Y: =566
+                ZIndex: =11
+
+            txtEmailUsuario_3 As text:
+                BorderColor: =RGBA(149, 149, 149, 1)
+                BorderThickness: =2
+                Color: =RGBA(255, 255, 255, 1)
+                Default: =""
+                DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                DisabledFill: =RGBA(0, 0, 0, 0)
+                DisplayMode: =DisplayMode.Disabled
+                Fill: =RGBA(0, 0, 0, 0)
+                FocusedBorderThickness: =1
+                Height: =97
+                HintText: =""
+                HoverBorderColor: =RGBA(110, 110, 110, 1)
+                HoverColor: =RGBA(255, 255, 255, 1)
+                HoverFill: =RGBA(32, 32, 32, 1)
+                PaddingLeft: =30
+                RadiusBottomLeft: =20
+                RadiusBottomRight: =20
+                RadiusTopLeft: =20
+                RadiusTopRight: =20
+                Size: =18
+                Width: =240
+                X: =60
+                Y: =685
+                ZIndex: =12
+
+            cmbInicioEvento As combobox:
+                BorderColor: =RGBA(197, 203, 207, 1)
+                BorderThickness: =0
+                ChevronBackground: =RGBA(0, 0, 0, 0)
+                ChevronDisabledBackground: =RGBA(166, 166, 166, 1)
+                ChevronDisabledFill: =RGBA(244, 244, 244, 1)
+                ChevronFill: =RGBA(149, 149, 149, 1)
+                ChevronHoverBackground: =RGBA(100, 118, 132, 0)
+                ChevronHoverFill: =RGBA(255, 255, 255, 0)
+                Color: =RGBA(255, 255, 255, 1)
+                DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                DisabledFill: =RGBA(244, 244, 244, 1)
+                DisplayFields: =["Value"]
+                Fill: =RGBA(32, 32, 32, 1)
+                FocusedBorderThickness: =0
+                Height: =70
+                HoverColor: =RGBA(255, 255, 255, 1)
+                HoverFill: =RGBA(32, 32, 32, 1)
+                IsSearchable: =false
+                Items: |-
+                    =[
+                      "00h00",
+                      "00h30",
+                      "01h00",
+                      "01h30",
+                      "02h00",
+                      "02h30",
+                      "03h00",
+                      "03h30",
+                      "04h00",
+                      "04h30",
+                      "05h00",
+                      "05h30",
+                      "06h00",
+                      "06h30",
+                      "07h00",
+                      "07h30",
+                      "08h00",
+                      "08h30",
+                      "09h00",
+                      "09h30",
+                      "10h00",
+                      "10h30",
+                      "11h00",
+                      "11h30",
+                      "12h00",
+                      "12h30",
+                      "13h00",
+                      "13h30",
+                      "14h00",
+                      "14h30",
+                      "15h00",
+                      "15h30",
+                      "16h00",
+                      "16h30",
+                      "17h00",
+                      "17h30",
+                      "18h00",
+                      "18h30",
+                      "19h00",
+                      "19h30",
+                      "20h00",
+                      "20h30",
+                      "21h00",
+                      "21h30",
+                      "22h00",
+                      "22h30",
+                      "23h00",
+                      "23h30",
+                    ]
+                NoSelectionText: ="Início"
+                PressedColor: =RGBA(255, 255, 255, 1)
+                PressedFill: =RGBA(100, 118, 132, 0)
+                SearchFields: =["Value"]
+                SearchItems: =[]
+                SelectionColor: =RGBA(29, 29, 29, 1)
+                SelectionFill: =RGBA(255, 255, 255, 1)
+                SelectMultiple: =false
+                Size: =21
+                Width: =214
+                X: =71
+                Y: =699
+                ZIndex: =13
+
+            txtEmailUsuario_4 As text:
+                BorderColor: =RGBA(149, 149, 149, 1)
+                BorderThickness: =2
+                Color: =RGBA(255, 255, 255, 1)
+                Default: =""
+                DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                DisabledFill: =RGBA(0, 0, 0, 0)
+                DisplayMode: =DisplayMode.Disabled
+                Fill: =RGBA(0, 0, 0, 0)
+                FocusedBorderThickness: =1
+                Height: =97
+                HintText: =""
+                HoverBorderColor: =RGBA(110, 110, 110, 1)
+                HoverColor: =RGBA(255, 255, 255, 1)
+                HoverFill: =RGBA(32, 32, 32, 1)
+                PaddingLeft: =30
+                RadiusBottomLeft: =20
+                RadiusBottomRight: =20
+                RadiusTopLeft: =20
+                RadiusTopRight: =20
+                Size: =18
+                Width: =240
+                X: =341
+                Y: =685
+                ZIndex: =14
+
+            cmbterminoEvento As combobox:
+                BorderColor: =RGBA(197, 203, 207, 1)
+                BorderThickness: =0
+                ChevronBackground: =RGBA(0, 0, 0, 0)
+                ChevronDisabledBackground: =RGBA(166, 166, 166, 1)
+                ChevronDisabledFill: =RGBA(244, 244, 244, 1)
+                ChevronFill: =RGBA(149, 149, 149, 1)
+                ChevronHoverBackground: =RGBA(100, 118, 132, 0)
+                ChevronHoverFill: =RGBA(255, 255, 255, 0)
+                Color: =RGBA(255, 255, 255, 1)
+                DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                DisabledFill: =RGBA(244, 244, 244, 1)
+                DisplayFields: =["Value"]
+                Fill: =RGBA(32, 32, 32, 1)
+                FocusedBorderThickness: =0
+                Height: =70
+                HoverColor: =RGBA(255, 255, 255, 1)
+                HoverFill: =RGBA(32, 32, 32, 1)
+                IsSearchable: =false
+                Items: |-
+                    =[
+                      "00h00",
+                      "00h30",
+                      "01h00",
+                      "01h30",
+                      "02h00",
+                      "02h30",
+                      "03h00",
+                      "03h30",
+                      "04h00",
+                      "04h30",
+                      "05h00",
+                      "05h30",
+                      "06h00",
+                      "06h30",
+                      "07h00",
+                      "07h30",
+                      "08h00",
+                      "08h30",
+                      "09h00",
+                      "09h30",
+                      "10h00",
+                      "10h30",
+                      "11h00",
+                      "11h30",
+                      "12h00",
+                      "12h30",
+                      "13h00",
+                      "13h30",
+                      "14h00",
+                      "14h30",
+                      "15h00",
+                      "15h30",
+                      "16h00",
+                      "16h30",
+                      "17h00",
+                      "17h30",
+                      "18h00",
+                      "18h30",
+                      "19h00",
+                      "19h30",
+                      "20h00",
+                      "20h30",
+                      "21h00",
+                      "21h30",
+                      "22h00",
+                      "22h30",
+                      "23h00",
+                      "23h30",
+                    ]
+                NoSelectionText: ="Término"
+                PressedColor: =RGBA(255, 255, 255, 1)
+                PressedFill: =RGBA(100, 118, 132, 0)
+                SearchFields: =["Value"]
+                SearchItems: =[]
+                SelectionColor: =RGBA(29, 29, 29, 1)
+                SelectionFill: =RGBA(255, 255, 255, 1)
+                SelectMultiple: =false
+                Size: =21
+                Width: =214
+                X: =354
+                Y: =699
+                ZIndex: =15
+
+            txtDetalhesEvento As text:
+                BorderColor: =RGBA(149, 149, 149, 1)
+                BorderThickness: =2
+                Color: =RGBA(255, 255, 255, 1)
+                Default: =""
+                DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                DisabledFill: =RGBA(244, 244, 244, 1)
+                Fill: =RGBA(32, 32, 32, 1)
+                FocusedBorderThickness: =1
+                Height: =349
+                HintText: ="Detalhe o evento"
+                HoverBorderColor: =RGBA(110, 110, 110, 1)
+                HoverColor: =RGBA(255, 255, 255, 1)
+                HoverFill: =RGBA(32, 32, 32, 1)
+                Mode: =TextMode.MultiLine
+                PaddingLeft: =30
+                PaddingTop: =20
+                RadiusBottomLeft: =20
+                RadiusBottomRight: =20
+                RadiusTopLeft: =20
+                RadiusTopRight: =20
+                Size: =18
+                Width: =521
+                X: =58
+                Y: =1095
+                ZIndex: =16
+
+            txtEmailUsuario_5 As text:
+                BorderColor: =RGBA(149, 149, 149, 1)
+                BorderThickness: =2
+                Color: =RGBA(255, 255, 255, 1)
+                Default: =""
+                DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                DisabledFill: =RGBA(0, 0, 0, 0)
+                DisplayMode: =DisplayMode.Disabled
+                Fill: =RGBA(0, 0, 0, 0)
+                FocusedBorderThickness: =1
+                Height: =97
+                HintText: =""
+                HoverBorderColor: =RGBA(110, 110, 110, 1)
+                HoverColor: =RGBA(255, 255, 255, 1)
+                HoverFill: =RGBA(32, 32, 32, 1)
+                PaddingLeft: =30
+                RadiusBottomLeft: =20
+                RadiusBottomRight: =20
+                RadiusTopLeft: =20
+                RadiusTopRight: =20
+                Size: =18
+                Width: =521
+                X: =60
+                Y: =413
+                ZIndex: =17
+
+            cmbCategoria As combobox:
+                BorderColor: =RGBA(197, 203, 207, 1)
+                BorderThickness: =0
+                ChevronBackground: =RGBA(0, 0, 0, 0)
+                ChevronDisabledBackground: =RGBA(166, 166, 166, 1)
+                ChevronDisabledFill: =RGBA(244, 244, 244, 1)
+                ChevronFill: =RGBA(149, 149, 149, 1)
+                ChevronHoverBackground: =RGBA(100, 118, 132, 0)
+                ChevronHoverFill: =RGBA(255, 255, 255, 0)
+                Color: =RGBA(255, 255, 255, 1)
+                DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                DisabledFill: =RGBA(244, 244, 244, 1)
+                DisplayFields: =["Descricao"]
+                Fill: =RGBA(32, 32, 32, 1)
+                FocusedBorderThickness: =0
+                Height: =70
+                HoverColor: =RGBA(255, 255, 255, 1)
+                HoverFill: =RGBA(32, 32, 32, 1)
+                IsSearchable: =false
+                Items: =SortByColumns(Categoria, "ID", SortOrder.Ascending)
+                NoSelectionText: ="Categoria"
+                PressedColor: =RGBA(255, 255, 255, 1)
+                PressedFill: =RGBA(100, 118, 132, 0)
+                SearchFields: =["Descricao"]
+                SearchItems: =[]
+                SelectionColor: =RGBA(29, 29, 29, 1)
+                SelectionFill: =RGBA(255, 255, 255, 1)
+                SelectMultiple: =false
+                Size: =21
+                Width: =496
+                X: =71
+                Y: =427
+                ZIndex: =18
+
+            txtEnderecoEvento As text:
+                BorderColor: =RGBA(149, 149, 149, 1)
+                BorderThickness: =2
+                Color: =RGBA(255, 255, 255, 1)
+                Default: =""
+                DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                DisabledFill: =RGBA(244, 244, 244, 1)
+                Fill: =RGBA(32, 32, 32, 1)
+                FocusedBorderThickness: =1
+                Height: =97
+                HintText: ="Endereço do evento"
+                HoverBorderColor: =RGBA(110, 110, 110, 1)
+                HoverColor: =RGBA(255, 255, 255, 1)
+                HoverFill: =RGBA(32, 32, 32, 1)
+                PaddingLeft: =30
+                RadiusBottomLeft: =20
+                RadiusBottomRight: =20
+                RadiusTopLeft: =20
+                RadiusTopRight: =20
+                Size: =18
+                Width: =521
+                X: =60
+                Y: =819
+                ZIndex: =19
+
+            txtNumParticipantes As text:
+                BorderColor: =RGBA(149, 149, 149, 1)
+                BorderThickness: =2
+                Color: =RGBA(255, 255, 255, 1)
+                Default: =""
+                DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                DisabledFill: =RGBA(244, 244, 244, 1)
+                Fill: =RGBA(32, 32, 32, 1)
+                FocusedBorderThickness: =1
+                Height: =97
+                HintText: ="Número de participantes"
+                HoverBorderColor: =RGBA(110, 110, 110, 1)
+                HoverColor: =RGBA(255, 255, 255, 1)
+                HoverFill: =RGBA(32, 32, 32, 1)
+                PaddingLeft: =30
+                RadiusBottomLeft: =20
+                RadiusBottomRight: =20
+                RadiusTopLeft: =20
+                RadiusTopRight: =20
+                Size: =18
+                Width: =521
+                X: =60
+                Y: =954
+                ZIndex: =20
+

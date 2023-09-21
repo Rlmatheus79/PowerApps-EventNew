@@ -1,0 +1,123 @@
+{
+  "38f28e21-0452-4fba-be25-f4f8ff5cf437": {
+    "appActions": [],
+    "connectionRef": {
+      "apiTier": "Standard",
+      "displayName": "Office 365 Outlook",
+      "iconUri": "https://connectoricons-prod.azureedge.net/releases/v1.0.1626/1.0.1626.3238/office365/icon.png",
+      "id": "/providers/microsoft.powerapps/apis/shared_office365",
+      "parameterHints": {},
+      "parameterHintsV2": {}
+    },
+    "datasets": {},
+    "dataSources": [
+      "Office365Outlook"
+    ],
+    "dependencies": {},
+    "dependents": [
+      "bb3cb7fd-75ad-4e7f-9864-6a35c1ce7afe"
+    ],
+    "id": "38f28e21-0452-4fba-be25-f4f8ff5cf437"
+  },
+  "ac7a0239-5577-42ba-8ff0-5d9209ff164e": {
+    "appActions": [
+      "providers/PowerPlatform.Governance/Operations/Read",
+      "providers/PowerPlatform.Governance/Operations/Write",
+      "providers/PowerPlatform.Governance/Operations/Delete"
+    ],
+    "connectionRef": {
+      "apiTier": "Standard",
+      "displayName": "SharePoint",
+      "iconUri": "https://connectoricons-prod.azureedge.net/releases/v1.0.1627/1.0.1627.3238/sharepointonline/icon.png",
+      "id": "/providers/microsoft.powerapps/apis/shared_sharepointonline",
+      "parameterHints": {},
+      "parameterHintsV2": {}
+    },
+    "datasets": {
+      "https://fatecspgov.sharepoint.com/sites/ProjetoVemComNois": {
+        "dataSources": {
+          "Categoria": {
+            "tableName": "3cf9a178-3b6d-4465-9789-83dd39b61235"
+          },
+          "Interesse_Usuario": {
+            "tableName": "091bc2b6-3368-40b6-bafd-0bd4f8a71f31"
+          },
+          "Notificacao": {
+            "tableName": "87c5bc20-8d92-4252-aa1b-c376166d7c03"
+          }
+        }
+      },
+      "https://fatecspgov.sharepoint.com/sites/ProjetoVemComNois/_layouts/15/viewlsts.aspx?view=14": {
+        "dataSources": {
+          "Cadastro_Usuario": {
+            "tableName": "b361a2ff-d2ad-4226-ae32-ef9de7dca522"
+          },
+          "Evento": {
+            "tableName": "0de728ee-f1c1-415f-9155-2afea39eb530"
+          },
+          "Participante_Evento": {
+            "tableName": "7a5c7401-89f0-4dcc-88d9-4df8b614475f"
+          }
+        }
+      }
+    },
+    "dataSources": [
+      "Cadastro_Usuario",
+      "Evento",
+      "Participante_Evento",
+      "Categoria",
+      "Notificacao",
+      "Interesse_Usuario"
+    ],
+    "dependencies": {},
+    "dependents": [
+      "bb3cb7fd-75ad-4e7f-9864-6a35c1ce7afe"
+    ],
+    "id": "ac7a0239-5577-42ba-8ff0-5d9209ff164e"
+  },
+  "bb3cb7fd-75ad-4e7f-9864-6a35c1ce7afe": {
+    "appActions": [
+      "Run"
+    ],
+    "connectionRef": {
+      "apiTier": "Standard",
+      "displayName": "Fluxos lógicos",
+      "iconUri": "https://connectoricons-prod.azureedge.net/releases/v1.0.1615/1.0.1615.3163/logicflows/icon.png",
+      "id": "/providers/microsoft.powerapps/apis/shared_logicflows",
+      "parameterHints": {
+        "38f28e21-0452-4fba-be25-f4f8ff5cf437": {
+          "value": "shared_office365"
+        },
+        "ac7a0239-5577-42ba-8ff0-5d9209ff164e": {
+          "value": "shared_sharepointonline"
+        },
+        "workflowEntityId": {},
+        "workflowName": {
+          "value": "3f823367-3fb4-46fa-8288-97823f19707b"
+        }
+      },
+      "parameterHintsV2": {
+        "shared_office365": {
+          "value": "38f28e21-0452-4fba-be25-f4f8ff5cf437"
+        },
+        "shared_sharepointonline": {
+          "value": "ac7a0239-5577-42ba-8ff0-5d9209ff164e"
+        },
+        "workflowEntityId": {},
+        "workflowName": {
+          "value": "3f823367-3fb4-46fa-8288-97823f19707b"
+        }
+      }
+    },
+    "datasets": {},
+    "dataSources": [
+      "EnviarEmailInscrito"
+    ],
+    "dependencies": {
+      "shared_office365": "38f28e21-0452-4fba-be25-f4f8ff5cf437",
+      "shared_sharepointonline": "ac7a0239-5577-42ba-8ff0-5d9209ff164e"
+    },
+    "dependents": [],
+    "id": "bb3cb7fd-75ad-4e7f-9864-6a35c1ce7afe"
+  }
+}

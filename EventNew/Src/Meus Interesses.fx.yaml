@@ -1,0 +1,286 @@
+"'Meus Interesses' As screen":
+    Fill: =RGBA(32, 32, 32, 1)
+    LoadingSpinnerColor: =RGBA(100, 118, 132, 1)
+
+    "GalleryEventos_4 As gallery.'BrowseLayout_Vertical_TwoTextOneImageVariant_ver4.0'":
+        BorderColor: =RGBA(197, 203, 207, 1)
+        Height: =409
+        Items: |-
+            =If(IsBlank(txtPesquisar_1.Text),
+                Filter(Interesse_Usuario,IDUsuario = VarDadosUsuario.ID)
+            ,
+                Filter(Interesse_Usuario,
+                    IDUsuario = VarDadosUsuario.ID,
+                    IDInteresse = LookUp(Categoria, StartsWith(Descricao,txtPesquisar_1.Text),ID) Or IDInteresse = Blank()
+                )
+            )
+        Layout: =Layout.Vertical
+        ShowScrollbar: =false
+        TemplatePadding: =0
+        TemplateSize: =120
+        Y: =225
+        ZIndex: =2
+
+        Group1_7 As group:
+            Height: =5
+            Width: =5
+            X: =3
+            Y: =-410
+            ZIndex: =11
+
+            Button2_42 As button:
+                DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                DisabledFill: =RGBA(244, 244, 244, 1)
+                DisplayMode: =DisplayMode.View
+                Fill: =RGBA(43, 43, 43, 1)
+                FontWeight: =FontWeight.Semibold
+                Height: =99
+                HoverColor: =RGBA(255, 255, 255, 1)
+                HoverFill: =ColorFade(RGBA(100, 118, 132, 1), -20%)
+                RadiusBottomLeft: =20
+                RadiusBottomRight: =20
+                RadiusTopLeft: =20
+                RadiusTopRight: =20
+                Size: =24
+                Text: =""
+                Width: =556
+                X: =40
+                Y: =5
+                ZIndex: =1
+
+            Icon2_25 As icon.Reset:
+                BorderColor: =RGBA(197, 203, 207, 1)
+                Color: =RGBA(255, 255, 255, 1)
+                DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                DisabledColor: =RGBA(244, 244, 244, 1)
+                Height: =33
+                Icon: =Icon.Trash
+                OnSelect: |-
+                    =Remove(Interesse_Usuario,ThisItem);
+                        
+                Width: =33
+                X: =527
+                Y: =35
+                ZIndex: =2
+
+            Label1_65 As label:
+                BorderColor: =RGBA(197, 203, 207, 1)
+                Color: =RGBA(255, 255, 255, 1)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                Font: =Font.Lato
+                FontWeight: =FontWeight.Bold
+                Height: =56
+                LineHeight: =1.4
+                PaddingLeft: =0
+                Size: =15
+                Text: =LookUp(Categoria,ID = ThisItem.IDInteresse,Descricao)
+                Width: =350
+                X: =75
+                Y: =24
+                ZIndex: =3
+
+            Label1_66 As label:
+                BorderColor: =RGBA(197, 203, 207, 1)
+                Color: =RGBA(169, 169, 169, 1)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                Font: =Font.Lato
+                FontWeight: =FontWeight.Bold
+                Height: =32
+                LineHeight: =1.4
+                PaddingLeft: =0
+                Size: =13
+                Text: =""
+                Visible: =false
+                Width: =207
+                X: =184
+                Y: =72
+                ZIndex: =4
+
+    txtPesquisar_1 As text:
+        BorderColor: =RGBA(149, 149, 149, 1)
+        BorderThickness: =0
+        Color: =RGBA(255, 255, 255, 1)
+        Default: =""
+        DisabledBorderColor: =RGBA(166, 166, 166, 1)
+        DisabledColor: =RGBA(255, 255, 255, 1)
+        DisabledFill: =RGBA(43, 43, 43, 1)
+        Fill: =RGBA(43, 43, 43, 1)
+        FocusedBorderThickness: =0
+        Height: =60
+        HintText: ="Pesquisar"
+        HoverBorderColor: =RGBA(110, 110, 110, 1)
+        HoverColor: =RGBA(255, 255, 255, 1)
+        HoverFill: =RGBA(43, 43, 43, 1)
+        PaddingLeft: =60
+        RadiusBottomLeft: =50
+        RadiusBottomRight: =50
+        RadiusTopLeft: =50
+        RadiusTopRight: =50
+        Size: =17
+        Width: =554
+        X: =43
+        Y: =137
+        ZIndex: =3
+
+    Label1_31 As label:
+        Align: =Align.Center
+        BorderColor: =RGBA(197, 203, 207, 1)
+        Color: =RGBA(255, 255, 255, 1)
+        DisabledColor: =RGBA(166, 166, 166, 1)
+        Font: =Font.Lato
+        FontWeight: =FontWeight.Bold
+        Height: =61
+        LineHeight: =1.4
+        PaddingLeft: =0
+        Size: =20
+        Text: ="Meus Interesses"
+        Width: =640
+        Y: =33
+        ZIndex: =4
+
+    Icon4_1 As icon.Search:
+        BorderColor: =RGBA(197, 203, 207, 1)
+        Color: =RGBA(165, 165, 165, 1)
+        DisabledBorderColor: =RGBA(166, 166, 166, 1)
+        DisabledColor: =RGBA(244, 244, 244, 1)
+        Height: =28
+        Icon: =Icon.Search
+        Width: =28
+        X: =62
+        Y: =153
+        ZIndex: =5
+
+    Icon2_24 As icon.Reset:
+        BorderColor: =RGBA(197, 203, 207, 1)
+        Color: =RGBA(255, 255, 255, 1)
+        DisabledBorderColor: =RGBA(166, 166, 166, 1)
+        DisabledColor: =RGBA(244, 244, 244, 1)
+        Height: =47
+        Icon: =Icon.Reset
+        OnSelect: =Back(ScreenTransition.CoverRight)
+        Width: =47
+        X: =37
+        Y: =40
+        ZIndex: =6
+
+    txtEmailUsuario_6 As text:
+        BorderColor: =RGBA(149, 149, 149, 1)
+        BorderThickness: =2
+        Color: =RGBA(255, 255, 255, 1)
+        Default: =""
+        DisabledBorderColor: =RGBA(166, 166, 166, 1)
+        DisabledColor: =RGBA(166, 166, 166, 1)
+        DisabledFill: =RGBA(0, 0, 0, 0)
+        DisplayMode: =DisplayMode.Disabled
+        Fill: =RGBA(0, 0, 0, 0)
+        FocusedBorderThickness: =1
+        Height: =97
+        HintText: =""
+        HoverBorderColor: =RGBA(110, 110, 110, 1)
+        HoverColor: =RGBA(255, 255, 255, 1)
+        HoverFill: =RGBA(32, 32, 32, 1)
+        PaddingLeft: =30
+        RadiusBottomLeft: =20
+        RadiusBottomRight: =20
+        RadiusTopLeft: =20
+        RadiusTopRight: =20
+        Size: =18
+        Width: =521
+        X: =62
+        Y: =822
+        ZIndex: =7
+
+    cmbInteresse As combobox:
+        BorderColor: =RGBA(197, 203, 207, 1)
+        BorderThickness: =0
+        ChevronBackground: =RGBA(0, 0, 0, 0)
+        ChevronDisabledBackground: =RGBA(166, 166, 166, 1)
+        ChevronDisabledFill: =RGBA(244, 244, 244, 1)
+        ChevronFill: =RGBA(149, 149, 149, 1)
+        ChevronHoverBackground: =RGBA(100, 118, 132, 0)
+        ChevronHoverFill: =RGBA(255, 255, 255, 0)
+        Color: =RGBA(255, 255, 255, 1)
+        DisabledBorderColor: =RGBA(166, 166, 166, 1)
+        DisabledColor: =RGBA(166, 166, 166, 1)
+        DisabledFill: =RGBA(244, 244, 244, 1)
+        DisplayFields: =["Descricao"]
+        Fill: =RGBA(32, 32, 32, 1)
+        FocusedBorderThickness: =0
+        Height: =70
+        HoverColor: =RGBA(255, 255, 255, 1)
+        HoverFill: =RGBA(32, 32, 32, 1)
+        IsSearchable: =false
+        Items: =SortByColumns(Categoria, "ID", SortOrder.Ascending)
+        NoSelectionText: ="Interesse"
+        PressedColor: =RGBA(255, 255, 255, 1)
+        PressedFill: =RGBA(100, 118, 132, 0)
+        SearchFields: =["Descricao"]
+        SearchItems: =[]
+        SelectionColor: =RGBA(29, 29, 29, 1)
+        SelectionFill: =RGBA(255, 255, 255, 1)
+        SelectMultiple: =false
+        Size: =21
+        Width: =496
+        X: =72
+        Y: =836
+        ZIndex: =8
+
+    Button1_6 As button:
+        BorderThickness: =0
+        Color: =RGBA(32, 32, 32, 1)
+        DisabledBorderColor: =RGBA(166, 166, 166, 1)
+        DisabledColor: =RGBA(166, 166, 166, 1)
+        DisabledFill: =RGBA(244, 244, 244, 1)
+        Fill: =RGBA(255, 255, 255, 1)
+        Font: =Font.Lato
+        FontWeight: =FontWeight.Bold
+        Height: =97
+        HoverColor: =RGBA(32, 32, 32, 1)
+        HoverFill: =RGBA(255, 255, 255, 1)
+        OnSelect: |-
+            =If(IsBlank(cmbInteresse.Selected),
+                Notify("Selecione um interesse !!",NotificationType.Error)
+            ,
+               If(!IsBlank(LookUp(Interesse_Usuario,IDInteresse = cmbInteresse.Selected.ID And IDUsuario = VarDadosUsuario.ID)),
+                    Notify("Você já cadastrou esse interesse", NotificationType.Error)
+                ,
+                    Patch(Interesse_Usuario,Defaults(Interesse_Usuario),
+                        {
+                          IDInteresse:  cmbInteresse.Selected.ID,
+                          IDUsuario: VarDadosUsuario.ID
+                        }
+                    );
+            
+                    Reset(cmbInteresse)
+               )
+            )
+        PressedColor: =Self.Color
+        PressedFill: =Self.Fill
+        RadiusBottomLeft: =20
+        RadiusBottomRight: =20
+        RadiusTopLeft: =20
+        RadiusTopRight: =20
+        Size: =20
+        Text: ="Cadastrar"
+        Width: =521
+        X: =60
+        Y: =961
+        ZIndex: =9
+
+    Label1_32 As label:
+        Align: =Align.Center
+        BorderColor: =RGBA(197, 203, 207, 1)
+        Color: =RGBA(255, 255, 255, 1)
+        DisabledColor: =RGBA(166, 166, 166, 1)
+        Font: =Font.Lato
+        FontWeight: =FontWeight.Bold
+        Height: =61
+        LineHeight: =1.4
+        PaddingLeft: =0
+        Size: =20
+        Text: ="Adicionar Interesse"
+        Width: =640
+        Y: =735
+        ZIndex: =10
+

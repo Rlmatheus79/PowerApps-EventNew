@@ -1,0 +1,412 @@
+"'Tela Cadastro' As screen":
+    Fill: =RGBA(32, 32, 32, 1)
+    LoadingSpinnerColor: =RGBA(100, 118, 132, 1)
+    OnHidden: |-
+        =Reset(rdTipoPessoa);
+        Reset(txtTelefoneUsuario);
+        Reset(txtEmailUsuario);
+        Reset(txtNomeUsuario);
+        Reset(txtSenhaUsuario);
+        ResetForm(Form1);
+        Set(varConfig,Blank());
+        UpdateContext({VarMostrar:false,varAlterarDados:false})
+    OnVisible: |-
+        =UpdateContext({VarMostrar:false})
+
+    Canvas1_1 As fluidGrid.fluidGridWithBlankCard:
+        BorderThickness: =0
+        Height: =1135
+        Width: =800
+        ZIndex: =16
+
+        DataCard1_1 As dataCard:
+            BorderColor: =RGBA(0, 0, 0, 1)
+            BorderStyle: =BorderStyle.Solid
+            BorderThickness: =0
+            DisplayMode: =DisplayMode.Edit
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =1276
+            Visible: =true
+            Width: =800
+            X: =0
+            Y: =0
+            ZIndex: =1
+
+            txtEmailUsuario As text:
+                BorderColor: =RGBA(149, 149, 149, 1)
+                BorderThickness: =2
+                Color: =RGBA(255, 255, 255, 1)
+                Default: =If(Edit,VarDadosUsuario.Email,"")
+                DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                DisabledFill: =RGBA(244, 244, 244, 1)
+                Fill: =RGBA(32, 32, 32, 1)
+                FocusedBorderThickness: =1
+                Height: =97
+                HintText: ="E-mail"
+                HoverBorderColor: =RGBA(110, 110, 110, 1)
+                HoverColor: =RGBA(255, 255, 255, 1)
+                HoverFill: =RGBA(32, 32, 32, 1)
+                PaddingLeft: =30
+                RadiusBottomLeft: =20
+                RadiusBottomRight: =20
+                RadiusTopLeft: =20
+                RadiusTopRight: =20
+                Size: =18
+                Width: =521
+                X: =60
+                Y: =413
+                ZIndex: =1
+
+            Label1_27 As label:
+                BorderColor: =RGBA(197, 203, 207, 1)
+                Color: =RGBA(255, 255, 255, 1)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                Font: =Font.'Lato Black'
+                FontWeight: =FontWeight.Bold
+                Height: =133
+                LineHeight: =1.4
+                PaddingLeft: =0
+                Size: =35
+                Text: =If(varAlterarDados,"Alterar todas as informações.","Preencha todas as informações.")
+                Width: =561
+                X: =60
+                Y: =106
+                ZIndex: =2
+
+            Icon2_12 As icon.Reset:
+                BorderColor: =RGBA(197, 203, 207, 1)
+                Color: =RGBA(255, 255, 255, 1)
+                DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                DisabledColor: =RGBA(244, 244, 244, 1)
+                Height: =47
+                Icon: =Icon.Reset
+                OnSelect: =Back(ScreenTransition.CoverRight)
+                Width: =47
+                X: =60
+                Y: =38
+                ZIndex: =3
+
+            txtTelefoneUsuario As text:
+                BorderColor: =RGBA(149, 149, 149, 1)
+                BorderThickness: =2
+                Color: =RGBA(255, 255, 255, 1)
+                Default: |-
+                    =If(Edit,
+                        If(!IsBlank(varConfig),
+                            varConfig
+                        ,
+                            VarDadosUsuario.Telefone
+                        )
+                    ,varConfig)
+                DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                DisabledFill: =RGBA(244, 244, 244, 1)
+                Fill: =RGBA(32, 32, 32, 1)
+                FocusedBorderThickness: =1
+                Height: =97
+                HintText: ="Telefone"
+                HoverBorderColor: =RGBA(110, 110, 110, 1)
+                HoverColor: =RGBA(255, 255, 255, 1)
+                HoverFill: =RGBA(32, 32, 32, 1)
+                OnChange: |-
+                    =If(Len(Self.Text) > 11 Or Len(Self.Text) < 11,
+                        Notify("Número do telefone deve conter 11 digítos",NotificationType.Error);
+                        Reset(txtTelefoneUsuario)
+                    ,
+                        Set(varConfig,
+                            Text(
+                        //Aqui vou formatar o DDD
+                            "(" & 
+                            Mid(txtTelefoneUsuario.Text,1,1) & //Lembrando que usamos o & para concatenar
+                            Mid(txtTelefoneUsuario.Text,2,1) & 
+                            ") " & 
+                        //Aqui vou iniciar a formatação do número do celular
+                                Mid(txtTelefoneUsuario.Text,3,1) & " " &
+                                Mid(txtTelefoneUsuario.Text,4,1) & 
+                                Mid(txtTelefoneUsuario.Text,5,1) & 
+                                Mid(txtTelefoneUsuario.Text,6,1) & 
+                                Mid(txtTelefoneUsuario.Text,7,1) & 
+                                "-" & 
+                                Mid(txtTelefoneUsuario.Text,8,1) & 
+                                Mid(txtTelefoneUsuario.Text,9,1) & 
+                                Mid(txtTelefoneUsuario.Text,10,1) & 
+                                Mid(txtTelefoneUsuario.Text,11,1)
+                        //Fecha a função Text
+                                )
+                        //Fecha a função Set
+                        )
+                    )
+                PaddingLeft: =30
+                RadiusBottomLeft: =20
+                RadiusBottomRight: =20
+                RadiusTopLeft: =20
+                RadiusTopRight: =20
+                Size: =18
+                Width: =521
+                X: =60
+                Y: =550
+                ZIndex: =4
+
+            Button1_3 As button:
+                BorderThickness: =0
+                Color: =RGBA(32, 32, 32, 1)
+                DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                DisabledFill: =RGBA(244, 244, 244, 1)
+                Fill: =RGBA(255, 255, 255, 1)
+                Font: =Font.Lato
+                FontWeight: =FontWeight.Bold
+                Height: =97
+                HoverColor: =RGBA(32, 32, 32, 1)
+                HoverFill: =RGBA(255, 255, 255, 1)
+                OnSelect: |-
+                    =If(IsBlank(txtSenhaUsuario.Text) Or IsBlank(txtNomeUsuario.Text) Or  IsBlank(txtEmailUsuario.Text) Or IsBlank(txtTelefoneUsuario.Text) Or  IsBlank(rdTipoPessoa.Selected),
+                        Notify("Preencha todos campos !!",NotificationType.Error)
+                    ,
+                       If(!IsBlank(LookUp(Cadastro_Usuario,Email = txtEmailUsuario.Text)),
+                            Notify("Já existe um usuario cadastrado com esse e-mail", NotificationType.Error)
+                        ,
+                            If(Edit,
+                                
+                                Patch(Cadastro_Usuario,DadosUsuario,
+                                    {
+                                        'Nome (Title)': txtNomeUsuario.Text,
+                                        Email: txtEmailUsuario.Text,
+                                        Senha: txtSenhaUsuario.Text,
+                                        Telefone: txtTelefoneUsuario.Text,
+                                        TipoUsuario: rdTipoPessoa.Selected.Value
+                                    },Form1.Updates
+                                );
+                    
+                                Set(VarDadosUsuario,LookUp(Cadastro_Usuario, ID = DadosUsuario.ID));
+                                
+                                Back(ScreenTransition.CoverRight)
+                            ,
+                                Patch(Cadastro_Usuario,Defaults(Cadastro_Usuario),
+                                    {
+                                        'Nome (Title)': txtNomeUsuario.Text,
+                                        Email: txtEmailUsuario.Text,
+                                        Senha: txtSenhaUsuario.Text,
+                                        Telefone: txtTelefoneUsuario.Text,
+                                        TipoUsuario: rdTipoPessoa.Selected.Value
+                                    },Form1.Updates
+                                );
+                                
+                                
+                                Navigate('Tela Login',ScreenTransition.CoverRight)
+                            );
+                       )
+                    )
+                PressedColor: =Self.Color
+                PressedFill: =Self.Fill
+                RadiusBottomLeft: =20
+                RadiusBottomRight: =20
+                RadiusTopLeft: =20
+                RadiusTopRight: =20
+                Size: =20
+                Text: ="Cadastrar"
+                Width: =521
+                X: =60
+                Y: =1146
+                ZIndex: =5
+
+            rdTipoPessoa As radio:
+                BorderColor: =RGBA(149, 149, 149, 1)
+                Color: =RGBA(255, 255, 255, 1)
+                Default: =If(Edit,VarDadosUsuario.TipoUsuario)
+                DisplayMode: =If(varAlterarDados,DisplayMode.Disabled,DisplayMode.Edit)
+                FocusedBorderThickness: =0
+                Font: =Font.Lato
+                Height: =105
+                HoverColor: =RGBA(255, 255, 255, 1)
+                Items: |-
+                    =
+                    ["Participante","Organizador"]
+                Layout: =Layout.Horizontal
+                RadioBackgroundFill: =RGBA(32, 32, 32, 1)
+                RadioBorderColor: =RGBA(149, 149, 149, 1)
+                RadioSelectionFill: =RGBA(255, 255, 255, 1)
+                Size: =21
+                Width: =540
+                X: =41
+                Y: =676
+                ZIndex: =6
+
+            txtSenhaUsuario As text:
+                BorderColor: =RGBA(149, 149, 149, 1)
+                BorderThickness: =2
+                Color: =RGBA(255, 255, 255, 1)
+                Default: =If(Edit,VarDadosUsuario.Senha,"")
+                DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                DisabledFill: =RGBA(244, 244, 244, 1)
+                Fill: =RGBA(32, 32, 32, 1)
+                FocusedBorderThickness: =1
+                Height: =97
+                HintText: ="Senha"
+                HoverBorderColor: =RGBA(110, 110, 110, 1)
+                HoverColor: =RGBA(255, 255, 255, 1)
+                HoverFill: =RGBA(32, 32, 32, 1)
+                Mode: =If(VarMostrar,TextMode.SingleLine,TextMode.Password)
+                PaddingLeft: =30
+                RadiusBottomLeft: =20
+                RadiusBottomRight: =20
+                RadiusTopLeft: =20
+                RadiusTopRight: =20
+                Size: =18
+                Width: =521
+                X: =60
+                Y: =790
+                ZIndex: =7
+
+            txtNomeUsuario As text:
+                BorderColor: =RGBA(149, 149, 149, 1)
+                BorderThickness: =2
+                Color: =RGBA(255, 255, 255, 1)
+                Default: =If(Edit,VarDadosUsuario.'Nome (Title)',"")
+                DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                DisabledFill: =RGBA(244, 244, 244, 1)
+                Fill: =RGBA(32, 32, 32, 1)
+                FocusedBorderThickness: =1
+                Height: =97
+                HintText: ="Nome completo"
+                HoverBorderColor: =RGBA(110, 110, 110, 1)
+                HoverColor: =RGBA(255, 255, 255, 1)
+                HoverFill: =RGBA(32, 32, 32, 1)
+                PaddingLeft: =30
+                RadiusBottomLeft: =20
+                RadiusBottomRight: =20
+                RadiusTopLeft: =20
+                RadiusTopRight: =20
+                Size: =18
+                Width: =521
+                X: =60
+                Y: =278
+                ZIndex: =8
+
+            Icon2_13 As icon.Reset:
+                BorderColor: =RGBA(197, 203, 207, 1)
+                Color: =RGBA(149, 149, 149, 1)
+                DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                DisabledColor: =RGBA(244, 244, 244, 1)
+                Height: =29
+                Icon: =If(VarMostrar,Icon.Hide,Icon.View)
+                OnSelect: |-
+                    =UpdateContext({VarMostrar:!VarMostrar})
+                Width: =26
+                X: =530
+                Y: =824
+                ZIndex: =9
+
+            txtSenhaUsuario_1 As text:
+                BorderColor: =RGBA(149, 149, 149, 1)
+                BorderThickness: =2
+                Color: =RGBA(32, 32, 32, 1)
+                Default: =""
+                DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                DisabledColor: =RGBA(0, 0, 0, 0)
+                DisabledFill: =RGBA(0, 0, 0, 0)
+                DisplayMode: =DisplayMode.Disabled
+                Fill: =RGBA(0, 0, 0, 0)
+                FocusedBorderThickness: =1
+                Height: =152
+                HintText: =""
+                HoverBorderColor: =RGBA(110, 110, 110, 1)
+                HoverColor: =RGBA(255, 255, 255, 1)
+                HoverFill: =RGBA(32, 32, 32, 1)
+                Mode: =
+                PaddingLeft: =30
+                RadiusBottomLeft: =20
+                RadiusBottomRight: =20
+                RadiusTopLeft: =20
+                RadiusTopRight: =20
+                Size: =18
+                Width: =522
+                X: =59
+                Y: =929
+                ZIndex: =10
+
+            Form1 As form:
+                AcceptsFocus: =false
+                BorderColor: =RGBA(197, 203, 207, 1)
+                DataSource: =Cadastro_Usuario
+                DefaultMode: =If(Edit,FormMode.Edit,FormMode.New)
+                Height: =272
+                Item: =If(Edit,LookUp(Cadastro_Usuario,Email = VarDadosUsuario.Email),{})
+                Width: =640
+                Y: =874
+                ZIndex: =11
+
+                Anexos_DataCard1 As typedDataCard.attachmentsEditCard:
+                    BorderColor: =RGBA(197, 203, 207, 1)
+                    BorderStyle: =BorderStyle.Solid
+                    DataField: ="{Attachments}"
+                    Default: =ThisItem.Anexos
+                    DisplayMode: =Parent.DisplayMode
+                    DisplayName: ="Anexos"
+                    Fill: =RGBA(0, 0, 0, 0)
+                    Height: =227
+                    Required: =false
+                    Update: =DataCardValue6.Attachments
+                    Width: =640
+                    X: =0
+                    Y: =0
+                    ZIndex: =14
+
+                    DataCardValue6 As attachments:
+                        AddedItemFill: =RGBA(32, 32, 32, 1)
+                        BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                        Color: =RGBA(149, 149, 149, 1)
+                        DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                        DisabledColor: =RGBA(166, 166, 166, 1)
+                        DisabledFill: =RGBA(244, 244, 244, 1)
+                        DisplayMode: =Parent.DisplayMode
+                        DropTargetBorderThickness: =0
+                        Fill: =RGBA(32, 32, 32, 1)
+                        Height: =145
+                        HoverColor: =RGBA(149, 149, 149, 1)
+                        HoverFill: =RGBA(0, 0, 0, 0)
+                        IsInDataCard: =true
+                        ItemColor: =RGBA(255, 255, 255, 1)
+                        ItemFill: =RGBA(32, 32, 32, 1)
+                        ItemHoverColor: =RGBA(149, 149, 149, 1)
+                        ItemHoverFill: =
+                        ItemPressedColor: =RGBA(32, 32, 32, 1)
+                        Items: =Parent.Default
+                        MaxAttachments: =1
+                        MaxAttachmentsText: ="Imagem de perfil anexada."
+                        NoAttachmentsText: ="Foto de Perfil."
+                        PaddingBottom: =5
+                        PaddingLeft: =If(Self.DisplayMode = DisplayMode.Edit, 5, 0)
+                        PaddingRight: =5
+                        PaddingTop: =5
+                        PressedColor: =RGBA(255, 255, 255, 1)
+                        PressedFill: =RGBA(32, 32, 32, 1)
+                        Size: =18
+                        Tooltip: =Parent.DisplayName
+                        Width: =483
+                        X: =72
+                        Y: =60
+                        ZIndex: =2
+
+                    ErrorMessage6 As label:
+                        AutoHeight: =true
+                        Color: =RGBA(255, 51, 51, 1)
+                        DisabledColor: =RGBA(166, 166, 166, 1)
+                        FontWeight: =FontWeight.Semibold
+                        Height: =10
+                        Live: =Live.Assertive
+                        PaddingBottom: =0
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        PaddingTop: =0
+                        Size: =24
+                        Text: =Parent.Error
+                        Visible: =Parent.DisplayMode=DisplayMode.Edit
+                        Width: =Parent.Width - 60
+                        X: =30
+                        Y: =DataCardValue6.Y + DataCardValue6.Height
+                        ZIndex: =3
+
