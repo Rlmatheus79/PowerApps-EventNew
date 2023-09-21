@@ -1,2 +1,2 @@
-# PowerApps-EventNew
-Projeto para cadastro de evento
+# PowerApps- EventNew
+## Projeto para cadastro e partipação de eventos
