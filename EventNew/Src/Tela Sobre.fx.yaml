@@ -1,0 +1,65 @@
+"'Tela Sobre' As screen":
+    Fill: =RGBA(29, 29, 29, 1)
+    LoadingSpinnerColor: =RGBA(100, 118, 132, 1)
+
+    Label1_21 As label:
+        BorderColor: =RGBA(197, 203, 207, 1)
+        Color: =RGBA(255, 255, 255, 1)
+        DisabledColor: =RGBA(166, 166, 166, 1)
+        Font: =Font.Lato
+        FontWeight: =FontWeight.Bold
+        Height: =61
+        LineHeight: =1.4
+        Size: =18
+        Text: ="Versão"
+        Width: =479
+        X: =58
+        Y: =114
+        ZIndex: =1
+
+    Label1_22 As label:
+        BorderColor: =RGBA(197, 203, 207, 1)
+        Color: =RGBA(255, 255, 255, 1)
+        DisabledColor: =RGBA(166, 166, 166, 1)
+        Font: =Font.Lato
+        Height: =50
+        LineHeight: =1.4
+        Text: ="1.0.0"
+        Width: =479
+        X: =58
+        Y: =160
+        ZIndex: =2
+
+    Label1_23 As label:
+        BorderColor: =RGBA(197, 203, 207, 1)
+        Color: =RGBA(255, 255, 255, 1)
+        DisabledColor: =RGBA(166, 166, 166, 1)
+        Font: =Font.Lato
+        FontWeight: =FontWeight.Lighter
+        Height: =234
+        LineHeight: =1.4
+        Size: =18
+        Text: |-
+            ="Desenvolvido por:
+            Matheus Lima
+            Jhonatan Holanda
+            José Duarte
+            Rafael Jesus"
+        Width: =510
+        X: =58
+        Y: =221
+        ZIndex: =3
+
+    Icon2_21 As icon.Reset:
+        BorderColor: =RGBA(197, 203, 207, 1)
+        Color: =RGBA(255, 255, 255, 1)
+        DisabledBorderColor: =RGBA(166, 166, 166, 1)
+        DisabledColor: =RGBA(244, 244, 244, 1)
+        Height: =47
+        Icon: =Icon.Reset
+        OnSelect: =Back()
+        Width: =47
+        X: =37
+        Y: =40
+        ZIndex: =4
+

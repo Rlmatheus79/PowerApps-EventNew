@@ -1,0 +1,9 @@
+[
+  {
+    "AddinConnectorId": "3f823367-3fb4-46fa-8288-97823f19707b",
+    "AddinId": "6d1f157d-95bf-406d-b65d-cfd3240f724e",
+    "Name": "EnviarEmailInscrito",
+    "ServiceKind": "AddinWadl",
+    "Type": "ServiceInfo"
+  }
+]

@@ -1,0 +1,205 @@
+"'Tela Login' As screen":
+    Fill: =RGBA(32, 32, 32, 1)
+    LoadingSpinnerColor: =RGBA(100, 118, 132, 1)
+    OnHidden: |-
+        =Reset(txtSenhaLogin);
+        Reset(txtEmailUsuarioLogin);
+        UpdateContext({VarMostrar:false})
+    OnVisible: |-
+        =UpdateContext({VarMostrar:false})
+
+    txtEmailUsuarioLogin As text:
+        BorderColor: =RGBA(149, 149, 149, 1)
+        BorderThickness: =2
+        Color: =RGBA(255, 255, 255, 1)
+        Default: =""
+        DisabledBorderColor: =RGBA(166, 166, 166, 1)
+        DisabledColor: =RGBA(166, 166, 166, 1)
+        DisabledFill: =RGBA(244, 244, 244, 1)
+        Fill: =RGBA(32, 32, 32, 1)
+        FocusedBorderThickness: =1
+        Height: =97
+        HintText: ="E-mail "
+        HoverBorderColor: =RGBA(110, 110, 110, 1)
+        HoverColor: =RGBA(255, 255, 255, 1)
+        HoverFill: =RGBA(32, 32, 32, 1)
+        PaddingLeft: =30
+        RadiusBottomLeft: =20
+        RadiusBottomRight: =20
+        RadiusTopLeft: =20
+        RadiusTopRight: =20
+        Size: =18
+        Width: =521
+        X: =59
+        Y: =418
+        ZIndex: =3
+
+    Label1_3 As label:
+        BorderColor: =RGBA(197, 203, 207, 1)
+        Color: =RGBA(255, 255, 255, 1)
+        DisabledColor: =RGBA(166, 166, 166, 1)
+        Font: =Font.'Lato Black'
+        FontWeight: =FontWeight.Bold
+        Height: =98
+        LineHeight: =1.4
+        Size: =35
+        Text: ="Vamos entrar."
+        Width: =430
+        X: =59
+        Y: =126
+        ZIndex: =7
+
+    Label1_4 As label:
+        BorderColor: =RGBA(197, 203, 207, 1)
+        Color: =RGBA(255, 255, 255, 1)
+        DisabledColor: =RGBA(166, 166, 166, 1)
+        Font: =Font.Lato
+        FontWeight: =FontWeight.Lighter
+        Height: =78
+        LineHeight: =1.4
+        Size: =25
+        Text: ="Que bom te-lô de volta."
+        Width: =430
+        X: =59
+        Y: =207
+        ZIndex: =8
+
+    Label1_5 As label:
+        BorderColor: =RGBA(197, 203, 207, 1)
+        Color: =RGBA(255, 255, 255, 1)
+        DisabledColor: =RGBA(166, 166, 166, 1)
+        Font: =Font.Lato
+        FontWeight: =FontWeight.Lighter
+        Height: =78
+        LineHeight: =1.4
+        Size: =25
+        Text: ="Sentimos sua falta."
+        Width: =430
+        X: =59
+        Y: =260
+        ZIndex: =9
+
+    Icon2 As icon.Reset:
+        BorderColor: =RGBA(197, 203, 207, 1)
+        Color: =RGBA(255, 255, 255, 1)
+        DisabledBorderColor: =RGBA(166, 166, 166, 1)
+        DisabledColor: =RGBA(244, 244, 244, 1)
+        Height: =47
+        Icon: =Icon.Reset
+        OnSelect: =Navigate('Tela Apresentação',ScreenTransition.CoverRight)
+        Width: =47
+        X: =59
+        Y: =41
+        ZIndex: =10
+
+    txtSenhaLogin As text:
+        BorderColor: =RGBA(149, 149, 149, 1)
+        BorderThickness: =2
+        Color: =RGBA(255, 255, 255, 1)
+        Default: =""
+        DisabledBorderColor: =RGBA(166, 166, 166, 1)
+        DisabledColor: =RGBA(166, 166, 166, 1)
+        DisabledFill: =RGBA(244, 244, 244, 1)
+        Fill: =RGBA(32, 32, 32, 1)
+        FocusedBorderThickness: =1
+        Height: =97
+        HintText: ="Senha"
+        HoverBorderColor: =RGBA(110, 110, 110, 1)
+        HoverColor: =RGBA(255, 255, 255, 1)
+        HoverFill: =RGBA(32, 32, 32, 1)
+        Mode: =If(VarMostrar,TextMode.SingleLine,TextMode.Password)
+        PaddingLeft: =30
+        RadiusBottomLeft: =20
+        RadiusBottomRight: =20
+        RadiusTopLeft: =20
+        RadiusTopRight: =20
+        Size: =18
+        Width: =521
+        X: =59
+        Y: =555
+        ZIndex: =11
+
+    Icon2_1 As icon.Reset:
+        BorderColor: =RGBA(197, 203, 207, 1)
+        Color: =RGBA(149, 149, 149, 1)
+        DisabledBorderColor: =RGBA(166, 166, 166, 1)
+        DisabledColor: =RGBA(244, 244, 244, 1)
+        Height: =29
+        Icon: =If(VarMostrar,Icon.Hide,Icon.View)
+        OnSelect: |-
+            =UpdateContext({VarMostrar:!VarMostrar})
+        Width: =26
+        X: =529
+        Y: =589
+        ZIndex: =12
+
+    Button1_2 As button:
+        BorderThickness: =0
+        Color: =RGBA(32, 32, 32, 1)
+        DisabledBorderColor: =RGBA(166, 166, 166, 1)
+        DisabledColor: =RGBA(166, 166, 166, 1)
+        DisabledFill: =RGBA(244, 244, 244, 1)
+        Fill: =RGBA(255, 255, 255, 1)
+        Font: =Font.Lato
+        FontWeight: =FontWeight.Bold
+        Height: =97
+        HoverColor: =RGBA(32, 32, 32, 1)
+        HoverFill: =RGBA(255, 255, 255, 1)
+        OnSelect: |-
+            =If(IsBlank(txtSenhaLogin.Text) Or IsBlank(txtEmailUsuarioLogin.Text),
+                Notify("Preencha todos campos !!",NotificationType.Error)
+            ,
+                Set(VarDadosUsuario, LookUp(Cadastro_Usuario,Email = txtEmailUsuarioLogin.Text And Senha = txtSenhaLogin.Text));
+                
+                If(!IsBlank(VarDadosUsuario),
+                    Navigate('Tela Inicial', ScreenTransition.Cover)
+                ,
+                    Notify("Conta não existe ou Email/Senha estão incorretos!!", NotificationType.Error)
+                )
+            )
+        PressedColor: =Self.Color
+        PressedFill: =Self.Fill
+        RadiusBottomLeft: =20
+        RadiusBottomRight: =20
+        RadiusTopLeft: =20
+        RadiusTopRight: =20
+        Size: =20
+        Text: ="Entrar"
+        Width: =521
+        X: =59
+        Y: =984
+        ZIndex: =13
+
+    Label1_6 As label:
+        Align: =Align.Center
+        BorderColor: =RGBA(197, 203, 207, 1)
+        Color: =RGBA(149, 149, 149, 1)
+        DisabledColor: =RGBA(166, 166, 166, 1)
+        Font: =Font.Lato
+        FontWeight: =FontWeight.Lighter
+        Height: =56
+        LineHeight: =1.4
+        Size: =18
+        Text: ="Não tem conta?"
+        Width: =266
+        X: =110
+        Y: =912
+        ZIndex: =14
+
+    Label1_7 As label:
+        Align: =Align.Center
+        BorderColor: =RGBA(197, 203, 207, 1)
+        Color: =RGBA(255, 255, 255, 1)
+        DisabledColor: =RGBA(166, 166, 166, 1)
+        Font: =Font.Lato
+        FontWeight: =FontWeight.Lighter
+        Height: =56
+        LineHeight: =1.4
+        OnSelect: =Navigate('Tela Cadastro',ScreenTransition.Cover)
+        Size: =18
+        Text: ="Cadastrar"
+        Width: =266
+        X: =263
+        Y: =912
+        ZIndex: =15
+

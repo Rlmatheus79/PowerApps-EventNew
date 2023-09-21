@@ -1,0 +1,516 @@
+"'Tela Inicial' As screen":
+    Fill: =RGBA(32, 32, 32, 1)
+    LoadingSpinnerColor: =RGBA(100, 118, 132, 1)
+
+    Image4 As image:
+        BorderColor: =RGBA(197, 203, 207, 1)
+        DisabledBorderColor: =RGBA(166, 166, 166, 1)
+        DisabledFill: =RGBA(244, 244, 244, 1)
+        Height: =91
+        Image: =First(LookUp(Cadastro_Usuario,Email = VarDadosUsuario.Email).Anexos).Value
+        ImagePosition: =ImagePosition.Fill
+        RadiusBottomLeft: =100
+        RadiusBottomRight: =100
+        RadiusTopLeft: =100
+        RadiusTopRight: =100
+        Width: =91
+        X: =37
+        Y: =33
+        ZIndex: =1
+
+    Label1_8 As label:
+        Align: =Align.Center
+        BorderColor: =RGBA(197, 203, 207, 1)
+        Color: =RGBA(255, 255, 255, 1)
+        DisabledColor: =RGBA(166, 166, 166, 1)
+        Font: =Font.Lato
+        FontWeight: =FontWeight.Lighter
+        Height: =61
+        LineHeight: =1.4
+        Size: =18
+        Text: |-
+            ="Olá, " & First(ForAll(Split(Proper(VarDadosUsuario.'Nome (Title)')," "), {Result: ThisRecord.Value})).Result /*First(Split(VarDadosUsuario.'Nome (Title)';" ")).Result*/ & "."
+        Width: =207
+        X: =220
+        Y: =33
+        ZIndex: =2
+
+    Label1_9 As label:
+        Align: =Align.Center
+        BorderColor: =RGBA(197, 203, 207, 1)
+        Color: =RGBA(149, 149, 149, 1)
+        DisabledColor: =RGBA(166, 166, 166, 1)
+        Font: =Font.Lato
+        FontWeight: =FontWeight.Bold
+        Height: =30
+        LineHeight: =1.4
+        Size: =15
+        Text: ="Bem - vindo de volta"
+        Width: =258
+        X: =194
+        Y: =87
+        ZIndex: =3
+
+    Icon2_2 As icon.Reset:
+        BorderColor: =RGBA(197, 203, 207, 1)
+        Color: =RGBA(255, 255, 255, 1)
+        DisabledBorderColor: =RGBA(166, 166, 166, 1)
+        DisabledColor: =RGBA(244, 244, 244, 1)
+        Height: =47
+        Icon: =Icon.Bell
+        OnSelect: =Navigate(Notificacoes, ScreenTransition.CoverRight)
+        Width: =47
+        X: =546
+        Y: =55
+        ZIndex: =4
+
+    Circle1 As circle:
+        BorderColor: =RGBA(197, 203, 207, 1)
+        Fill: =RGBA(243, 51, 100, 1)
+        Height: =13
+        Visible: =If(!IsEmpty(Filter(Notificacao, IDUsuario = VarDadosUsuario.ID, Status = "Não visualizado")),true,false)
+        Width: =13
+        X: =576
+        Y: =55
+        ZIndex: =5
+
+    Label1_10 As label:
+        BorderColor: =RGBA(197, 203, 207, 1)
+        Color: =RGBA(149, 149, 149, 1)
+        DisabledColor: =RGBA(166, 166, 166, 1)
+        Font: =Font.Lato
+        FontWeight: =FontWeight.Bold
+        Height: =61
+        LineHeight: =1.4
+        PaddingLeft: =0
+        Size: =15
+        Text: ="Próximo evento"
+        Width: =207
+        X: =37
+        Y: =172
+        ZIndex: =6
+
+    Label1_11 As label:
+        BorderColor: =RGBA(197, 203, 207, 1)
+        Color: =RGBA(255, 255, 255, 1)
+        DisabledColor: =RGBA(166, 166, 166, 1)
+        Font: =Font.Lato
+        FontWeight: =FontWeight.Bold
+        Height: =61
+        LineHeight: =1.4
+        PaddingLeft: =0
+        Size: =20
+        Text: |-
+            =If(VarDadosUsuario.TipoUsuario = "Organizador", 
+                If(IsBlank(First(SortByColumns(AddColumns(Filter(Evento,IDOrganizador = VarDadosUsuario.ID,Status = "Em breve"),"DataFull",DateTimeValue(Data & " " & First(ForAll(Split(Horario,"-"), {Result: ThisRecord.Value})).Result)),"DataFull",SortOrder.Ascending)).NomeEvento),
+                   "Nenhum evento próximo."
+                ,
+                    First(SortByColumns(AddColumns(Filter(Evento,IDOrganizador = VarDadosUsuario.ID,Status = "Em breve"),"DataFull",DateTimeValue(Data & " " & First(ForAll(Split(Horario,"-"), {Result: ThisRecord.Value})).Result)),"DataFull",SortOrder.Ascending)).NomeEvento
+                )
+            ,
+                If(IsBlank(First(SortByColumns(AddColumns(Filter(Evento,ID in Filter(Participante_Evento,IDParticipante = VarDadosUsuario.ID).IDEvento,Status = "Em breve"),"DataFull",DateTimeValue(Data & " " & First(ForAll(Split(Horario,"-"), {Result: ThisRecord.Value})).Result)),"DataFull",SortOrder.Ascending)).NomeEvento),
+                    "Nenhum evento próximo."
+                ,
+                    First(SortByColumns(AddColumns(Filter(Evento,ID in Filter(Participante_Evento,IDParticipante = VarDadosUsuario.ID).IDEvento,Status = "Em breve"),"DataFull",DateTimeValue(Data & " " & First(ForAll(Split(Horario,"-"), {Result: ThisRecord.Value})).Result)),"DataFull",SortOrder.Ascending)).NomeEvento
+                )
+            )
+        Width: =368
+        X: =37
+        Y: =217
+        ZIndex: =7
+
+    Label1_12 As label:
+        BorderColor: =RGBA(197, 203, 207, 1)
+        Color: =RGBA(255, 255, 255, 1)
+        DisabledColor: =RGBA(166, 166, 166, 1)
+        Font: =Font.Lato
+        FontWeight: =FontWeight.Bold
+        Height: =61
+        LineHeight: =1.4
+        OnSelect: =Navigate('Pesquisar Evento',ScreenTransition.Cover)
+        PaddingLeft: =0
+        Size: =15
+        Text: ="Procurar evento"
+        Width: =207
+        X: =37
+        Y: =270
+        ZIndex: =8
+
+    Icon2_3 As icon.Reset:
+        BorderColor: =RGBA(197, 203, 207, 1)
+        Color: =RGBA(255, 255, 255, 1)
+        DisabledBorderColor: =RGBA(166, 166, 166, 1)
+        DisabledColor: =RGBA(244, 244, 244, 1)
+        Height: =27
+        Icon: =Icon.ArrowRight
+        Width: =27
+        X: =194
+        Y: =288
+        ZIndex: =9
+
+    Label1_13 As label:
+        BorderColor: =RGBA(197, 203, 207, 1)
+        Color: =RGBA(149, 149, 149, 1)
+        DisabledColor: =RGBA(166, 166, 166, 1)
+        Font: =Font.Lato
+        FontWeight: =FontWeight.Bold
+        Height: =61
+        LineHeight: =1.4
+        PaddingLeft: =0
+        Size: =15
+        Text: ="Sugestões de eventos"
+        Width: =207
+        X: =37
+        Y: =372
+        ZIndex: =10
+
+    "GalleryEventos As gallery.'BrowseLayout_Vertical_TwoTextOneImageVariant_ver4.0'":
+        BorderColor: =RGBA(197, 203, 207, 1)
+        Height: =610
+        Items: |-
+            =If(VarDadosUsuario.TipoUsuario = "Organizador",
+                If(IsEmpty(Filter(Evento,IDOrganizador = VarDadosUsuario.ID)),
+                    Filter(Evento, Status = "Em breve" Or Status = "Em andamento")
+                ,
+                    Filter(Evento,IDOrganizador = VarDadosUsuario.ID,  Status = "Em breve" Or Status = "Em andamento")
+                )
+            ,
+                If(IsEmpty(Filter(Interesse_Usuario, IDUsuario = VarDadosUsuario.ID).IDInteresse),
+                    Filter(Evento, Status = "Em breve" Or Status = "Em andamento")
+                ,
+                    Filter(Evento,IDInteresse in Filter(Interesse_Usuario, IDUsuario = VarDadosUsuario.ID).IDInteresse, Status = "Em breve" Or Status = "Em andamento")
+                )
+            )
+        Layout: =Layout.Vertical
+        OnSelect: |-
+            =Navigate('Detalhes Eventos',ScreenTransition.Cover,{DadosEvento: ThisItem})
+        ShowScrollbar: =false
+        TemplatePadding: =0
+        TemplateSize: =238
+        Y: =433
+        ZIndex: =11
+
+        Icon1 As icon.Check:
+            BorderColor: =RGBA(197, 203, 207, 1)
+            Color: =RGBA(54, 176, 75, 1)
+            DisabledBorderColor: =RGBA(166, 166, 166, 1)
+            DisabledColor: =RGBA(244, 244, 244, 1)
+            Height: =50
+            Icon: =Icon.Check
+            OnSelect: =Select(Parent)
+            Visible: |-
+                =If(
+                    !IsEmpty(
+                        Filter(Participante_Evento, 
+                            IDEvento = ThisItem.ID, 
+                            IDParticipante = VarDadosUsuario.ID
+                        )
+                    ),true,false)
+            Width: =50
+            X: =514
+            Y: =86
+            ZIndex: =11
+
+        Group1_3 As group:
+            Height: =5
+            Width: =5
+            X: =3
+            Y: =-410
+            ZIndex: =11
+
+            Button2_16 As button:
+                DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                DisabledFill: =RGBA(244, 244, 244, 1)
+                DisplayMode: =DisplayMode.View
+                Fill: =RGBA(43, 43, 43, 1)
+                FontWeight: =FontWeight.Semibold
+                Height: =214
+                HoverColor: =RGBA(255, 255, 255, 1)
+                HoverFill: =ColorFade(RGBA(100, 118, 132, 1), -20%)
+                OnSelect: =Select(Parent)
+                RadiusBottomLeft: =20
+                RadiusBottomRight: =20
+                RadiusTopLeft: =20
+                RadiusTopRight: =20
+                Size: =24
+                Text: =""
+                Width: =556
+                X: =40
+                Y: =5
+                ZIndex: =1
+
+            Icon2_15 As icon.Reset:
+                BorderColor: =RGBA(197, 203, 207, 1)
+                Color: =RGBA(255, 255, 255, 1)
+                DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                DisabledColor: =RGBA(244, 244, 244, 1)
+                Height: =60
+                Icon: =Icon.Laptop
+                OnSelect: =Select(Parent)
+                Width: =60
+                X: =71
+                Y: =27
+                ZIndex: =2
+
+            Label1_34 As label:
+                BorderColor: =RGBA(197, 203, 207, 1)
+                Color: =RGBA(255, 255, 255, 1)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                Font: =Font.Lato
+                FontWeight: =FontWeight.Bold
+                Height: =56
+                LineHeight: =1.4
+                OnSelect: =Select(Parent)
+                PaddingLeft: =0
+                Size: =15
+                Text: =ThisItem.NomeEvento
+                Width: =350
+                X: =184
+                Y: =21
+                ZIndex: =3
+
+            Label1_33 As label:
+                BorderColor: =RGBA(197, 203, 207, 1)
+                Color: =RGBA(169, 169, 169, 1)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                Font: =Font.Lato
+                FontWeight: =FontWeight.Bold
+                Height: =32
+                LineHeight: =1.4
+                OnSelect: =Select(Parent)
+                PaddingLeft: =0
+                Size: =13
+                Text: =ThisItem.Horario
+                Width: =207
+                X: =184
+                Y: =72
+                ZIndex: =4
+
+            Button2_19 As button:
+                BorderThickness: =0
+                DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                DisabledFill: =RGBA(244, 244, 244, 1)
+                Fill: =RGBA(243, 51, 100, 1)
+                FocusedBorderThickness: =0
+                Font: =Font.Lato
+                FontWeight: =FontWeight.Semibold
+                Height: =50
+                HoverColor: =RGBA(255, 255, 255, 1)
+                HoverFill: =
+                OnSelect: |-
+                    =Patch(Evento,ThisItem,
+                        {
+                            NumeroParticipantes: ThisItem.NumeroParticipantes - 1
+                        }
+                    );
+                    
+                    Patch(Participante_Evento,
+                        {
+                            IDEvento: ThisItem.ID,
+                            IDParticipante: VarDadosUsuario.ID
+                        }
+                    );
+                    
+                    Patch(Notificacao,
+                        {
+                            IDUsuario: ThisItem.IDOrganizador,
+                            DescricaoNotificacao: "Um novo participante acaba de inscrever-se no seu evento",
+                            Status: "Não visualizado"
+                        }
+                    );
+                    EnviarEmailInscrito.Run(VarDadosUsuario.ID,ThisItem.ID)
+                PressedColor: =RGBA(255, 255, 255, 1)
+                PressedFill: =
+                RadiusBottomLeft: =25
+                RadiusBottomRight: =25
+                RadiusTopLeft: =25
+                RadiusTopRight: =25
+                Text: ="Participar"
+                Visible: =If(VarDadosUsuario.TipoUsuario = "Organizador",false,If(IsEmpty(Filter(Participante_Evento, IDEvento = ThisItem.ID, IDParticipante = VarDadosUsuario.ID)),true,false))
+                Width: =158
+                X: =406
+                Y: =150
+                ZIndex: =5
+
+            Label1_37 As label:
+                BorderColor: =RGBA(197, 203, 207, 1)
+                Color: =RGBA(169, 169, 169, 1)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                Font: =Font.Lato
+                FontWeight: =FontWeight.Bold
+                Height: =32
+                LineHeight: =1.4
+                OnSelect: =Select(Parent)
+                PaddingLeft: =0
+                Size: =13
+                Text: =LookUp(Categoria, ID = ThisItem.IDInteresse,Descricao)
+                Width: =207
+                X: =184
+                Y: =104
+                ZIndex: =6
+
+            Button2_15 As button:
+                DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                DisabledFill: =RGBA(244, 244, 244, 1)
+                DisplayMode: =DisplayMode.View
+                Fill: =RGBA(32, 32, 32, 1)
+                FontWeight: =FontWeight.Semibold
+                Height: =78
+                HoverColor: =RGBA(255, 255, 255, 1)
+                HoverFill: =ColorFade(RGBA(100, 118, 132, 1), -20%)
+                OnSelect: =Select(Parent)
+                RadiusBottomLeft: =20
+                RadiusBottomRight: =20
+                RadiusTopLeft: =20
+                RadiusTopRight: =20
+                Size: =24
+                Text: =""
+                Width: =84
+                X: =58
+                Y: =104
+                ZIndex: =7
+
+            Label1_35 As label:
+                Align: =Align.Center
+                BorderColor: =RGBA(197, 203, 207, 1)
+                Color: =RGBA(255, 255, 255, 1)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                Font: =Font.Lato
+                Height: =46
+                LineHeight: =1.4
+                OnSelect: =Select(Parent)
+                PaddingBottom: =0
+                PaddingLeft: =0
+                Size: =15
+                Text: =Day(ThisItem.Data)
+                Width: =84
+                X: =58
+                Y: =104
+                ZIndex: =8
+
+            Label1_43 As label:
+                Align: =Align.Center
+                BorderColor: =RGBA(197, 203, 207, 1)
+                Color: =RGBA(255, 255, 255, 1)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                Font: =Font.Lato
+                Height: =38
+                LineHeight: =1.4
+                OnSelect: =Select(Parent)
+                PaddingBottom: =10
+                PaddingLeft: =0
+                PaddingTop: =0
+                Size: =15
+                Text: |
+                    =If(Month(ThisItem.Data) = 1,
+                        "Jan"
+                    ,
+                        If(Month(ThisItem.Data) = 2,
+                            "Fev"
+                        ,
+                            If(Month(ThisItem.Data) = 3,
+                                "Mar"
+                            ,
+                                If(Month(ThisItem.Data) = 4,
+                                    "Abr"
+                                ,
+                                    If(Month(ThisItem.Data) = 5,
+                                        "Mai"
+                                    ,
+                                        If(Month(ThisItem.Data) = 6,
+                                            "Jun"
+                                        ,
+                                            If(Month(ThisItem.Data) = 7,
+                                                "Jul"
+                                            ,
+                                                If(Month(ThisItem.Data) = 8,
+                                                    "Ago"
+                                                ,
+                                                    If(Month(ThisItem.Data) = 9,
+                                                        "Set"
+                                                    ,
+                                                        If(Month(ThisItem.Data) = 10,
+                                                            "Out"
+                                                        ,
+                                                            If(Month(ThisItem.Data) = 11,
+                                                                "Nov"
+                                                            ,
+                                                                "Dez"
+                                                            )
+                                                        )
+                                                    )
+                                                )
+                                            )
+                                        )
+                                    )
+                                )
+                            )
+                        )
+                    )
+                Width: =84
+                X: =58
+                Y: =144
+                ZIndex: =9
+
+            Button2_17 As button:
+                Align: =Align.Left
+                BorderThickness: =0
+                DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                DisabledFill: =RGBA(244, 244, 244, 1)
+                Fill: =RGBA(43, 43, 43, 1)
+                FocusedBorderThickness: =0
+                FontWeight: =FontWeight.Semibold
+                Height: =50
+                HoverColor: =RGBA(255, 255, 255, 1)
+                HoverFill: =
+                OnSelect: =Select(Parent)
+                PaddingLeft: =0
+                PressedColor: =RGBA(255, 255, 255, 1)
+                PressedFill: =
+                RadiusBottomLeft: =25
+                RadiusBottomRight: =25
+                RadiusTopLeft: =25
+                RadiusTopRight: =25
+                Text: ="Detalhes"
+                Underline: =true
+                Width: =131
+                X: =184
+                Y: =150
+                ZIndex: =10
+
+    Label1_71 As label:
+        Align: =Align.Center
+        BorderColor: =RGBA(197, 203, 207, 1)
+        Color: =RGBA(149, 149, 149, 1)
+        DisabledColor: =RGBA(166, 166, 166, 1)
+        Font: =Font.Lato
+        FontWeight: =FontWeight.Semibold
+        Height: =61
+        LineHeight: =1.4
+        PaddingBottom: =20
+        PaddingLeft: =20
+        Size: =12
+        Text: |-
+            ="Nenhum evento que partilhe do seu interesse 
+            esta ocorrendo no momento"
+        Visible: =IsEmpty(GalleryEventos.AllItems)
+        Width: =556
+        X: =37
+        Y: =448
+        ZIndex: =12
+
+    MenuInferior_1 As MenuInferior:
+        ContentLanguage: =""
+        MoverBarra: ="40"
+        NavConfig: =Configurações
+        NavCriar: =If(VarDadosUsuario.TipoUsuario = "Organizador",'Tela Cadastro Evento','Pesquisar Evento')
+        NavHistorico: =Histórico
+        NavInicial: ='Tela Inicial'
+        Perfil: =VarDadosUsuario.TipoUsuario
+        Y: =1043
+        ZIndex: =13
+

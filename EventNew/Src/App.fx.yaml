@@ -1,0 +1,15 @@
+App As appinfo:
+    BackEnabled: =false
+    OnError: |-
+        =Set(NomeStatus, {
+            Aberto: "Aberto"
+        })
+    Theme: =PowerAppsTheme
+
+    Host As hostControl.DefaultHostControlVariant:
+        OnCancel: =false
+        OnEdit: =false
+        OnNew: =false
+        OnSave: =false
+        OnView: =false
+
